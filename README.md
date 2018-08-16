@@ -156,6 +156,7 @@ are made available in the running app seconds after they are saved.
 Run `npm run generate-translations` again whenever
 
 - the list of supported languages in `languages.json` changes
+- new translations are added in the English file `en.json`
 - a changes is made in a language overrides `.json` file
 - a new call to `i18n` is added in `.js` file,
   or the string passed to an existing call is changed,
