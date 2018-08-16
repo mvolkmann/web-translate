@@ -14,6 +14,9 @@
     "url": "git+https://github.com/mvolkmann/web-translate.git"
   },
   "main": "lib/index.js",
+  "bin": {
+    "generate-translations": "lib/generate-translations.js"
+  },
   "scripts": {
     "format": "prettier --write src/**/*.js",
     "lint": "eslint --quiet src --ext .js",

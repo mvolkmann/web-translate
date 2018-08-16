@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from 'fs';
 import translate from 'google-translate-api';
 
@@ -112,7 +114,8 @@ function removeQuotes(text) {
 }
 
 function writeJsonFile(filePath, obj) {
-  fs.writeFileSync(filePath, JSON.stringify(obj, null, 2));
+  const sortedKeys = Object.keys(obj).sort();
+  fs.writeFileSync(filePath, JSON.stringify(obj, sortedKeys, 2));
 }
 
 generateTranslations();
