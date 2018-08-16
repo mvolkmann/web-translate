@@ -10,7 +10,7 @@ To use this package,
 
 1. `npm install web-translate`
 2. Add the following npm script in the `package.json` file for your application.\
-   `"generate-translations": "node node_modules/web-translate/lib/generate-translations",`
+   `"gentran": "generate-translations",`
 
 ## Supported Languages
 
