@@ -1,12 +1,23 @@
 {
   "name": "web-translate",
   "description": "supports language translation in web applications",
+  "author": "R. Mark Volkmann <r.mark.volkmann@gmail.com> (http://mvolkmann.github.io)",
   "version": "0.1.0",
+  "keywords": [
+    "language",
+    "translation",
+    "web"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvolkmann/web-translate.git"
+  },
+  "main": "src/index.js",
   "scripts": {
     "generate-translations": "node -r esm src/generate-translations"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "esm": "^3.0.77",
     "google-translate-api": "^2.3.0"
