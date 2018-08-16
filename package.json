@@ -2,7 +2,7 @@
   "name": "web-translate",
   "description": "supports language translation in web applications",
   "author": "R. Mark Volkmann <r.mark.volkmann@gmail.com> (http://mvolkmann.github.io)",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "keywords": [
     "language",
     "translation",
@@ -17,7 +17,6 @@
   "scripts": {
     "format": "prettier --write src/**/*.js",
     "lint": "eslint --quiet src --ext .js",
-    "generate-translations": "node -r esm src/generate-translations",
     "prepublish": "babel src -d lib"
   },
   "dependencies": {},
