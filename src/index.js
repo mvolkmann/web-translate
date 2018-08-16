@@ -29,13 +29,8 @@ export const i18n = key => translations[key] || key;
 
 export async function setLanguage(code) {
   languageCode = code;
-
   translations = await getJson(code + '.json');
-  const overrides = await getJson(code + '-overrides.json');
-  if (Object.keys(overrides).length) {
-    translations = {...translations, ...overrides};
-  }
-  //console.log('translate.js setLanguage: translations =', translations);
+  console.log('web-translate setLanguage: translations =', translations);
 }
 
 setLanguage(getDefaultLanguage());
