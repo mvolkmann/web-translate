@@ -1,0 +1,14 @@
+{
+  "name": "web-translate",
+  "description": "supports language translation in web applications",
+  "version": "0.1.0",
+  "scripts": {
+    "generate-translations": "node -r esm src/generate-translations"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "esm": "^3.0.77",
+    "google-translate-api": "^2.3.0"
+  }
+}
