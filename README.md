@@ -10,10 +10,14 @@ a command that make language translation in web applications very easy!
 It is not specific to any framework and should work with
 all the popular choices including React, Vue, and Angular.
 
+The translations are performed as a build step,
+so no cost for translation services is incurred
+during usage of web applications.
+
 ## No Free Lunch
 
-The most highly recommended language translation services
-are Google Cloud Translation API and Yandex Translate Service.
+The most highly recommended language translation services are
+the Google Cloud Translation API and the Yandex Translate Service.
 Both require an API key.
 
 The Google Cloud Translation API requires setup of
@@ -22,10 +26,10 @@ It charges $20 (USD) per million characters translated.
 Information on obtaining a Google API key can be found at
 <https://cloud.google.com/translate/>.
 
-The Yandex Translate Service has free and commercial levels.
-The free level currently allows up to 1,000,000 characters per day,
+The Yandex Translate Service has free and commercial tiers.
+The free tier currently allows translating up to 1,000,000 characters per day,
 but not more than 10,000,000 per month.
-The commercial level pricing is documented at
+The commercial tier pricing is documented at
 <https://translate.yandex.com/developers/offer/prices>.
 Currently it charges $15 (USD) per million characters translated
 up to 50 million. The rates go down slowly above that.
@@ -38,12 +42,14 @@ To use this package,
 
 1. `npm install web-translate`
 2. Set the environment variable `API_KEY` to the API key for the desired service.
-3. Add the following npm script in the `package.json` file for your application.\
+3. Set the environment variable `TRANSLATE_SERVICE` to "google" or "yandex".
+   When not set, this defaults to "yandex" because that has a free tier.
+4. Add the following npm script in the `package.json` file for your application.\
    `"gentran": "generate-translations",`
 
 ## Supported Written Languages
 
-Create the file `languages.json` to describe the languages you wish to support.
+Create the file `languages.json` to describe the languages to be supported.
 More can easily be added later. For example,
 
 ```json
@@ -55,7 +61,7 @@ More can easily be added later. For example,
 ```
 
 It is important to get the language codes (like "en") correct
-because those are used to required translations.
+because those are used to request translations.
 
 This file must be in a directory that is accessible at the domain of the web app.
 For example, if your web app is running on `localhost:3000`
@@ -93,8 +99,9 @@ can be manually entered in language-specific JSON files
 like `es.json` (for Spanish) and `fr.json` (for French).
 However as we will see next, these files can be generated
 using the Google Translate API.
+
 In some cases it may be desirable to use different translations.
-Those provided by Google Translate can be overridden by
+Those provided by the translation service can be overridden by
 creating a JSON file whose name starts with the language code,
 followed by `-override.json`.
 For example, the file `es-overrides.json` could contain
@@ -127,11 +134,11 @@ Here is a description of what this does.
       If none exist then `translations` begins empty.
    2. For each key/value pair in the English translation file `en.json` ...
       - If there is not already a translation for this key,
-        get the translation for the value from Google Translate
+        get the translation for the value from the selected translation service
         and save it in `translations`.
    3. For each key found in source files ...
       - If there is not already a translation for this key,
-        get the translation for the value from Google Translate
+        get the translation for the value from the selected translation service
         and save it in `translations`.
    4. Write `translations` to a new translation file for the current language.
 
