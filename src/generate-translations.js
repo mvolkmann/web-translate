@@ -1,26 +1,36 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import translate from 'google-translate-api';
+import {setApiKey, translate} from './translate';
 
-function generateTranslations() {
+const {API_KEY} = process.env;
+if (!API_KEY) {
+  throw new Error(
+    'The environment variable API_KEY must set for a language translation service.'
+  );
+}
+setApiKey(API_KEY);
+
+async function generateTranslations() {
   // Get all the languages to be supported.
   const languages = readJsonFile('public/languages.json');
 
   // Get all the strings passed to the i18n function
-  // in all the .js files under the src directory.
-  const jsKeys = getI18nKeys('src');
+  // in all the source files under the src directory.
+  const sourceKeys = getI18nKeys('src');
 
   // Get all the English translations.
   const english = readJsonFile('public/en.json');
 
   // For each language to be supported ...
-  Object.values(languages).forEach(langCode =>
-    processLanguage(langCode, english, jsKeys)
+  const promises = Object.values(languages).map(langCode =>
+    processLanguage(langCode, english, sourceKeys)
   );
+
+  await Promise.all(promises);
 }
 
-async function processLanguage(langCode, english, jsKeys) {
+async function processLanguage(langCode, english, sourceKeys) {
   // Don't generate translations for English.
   if (langCode === 'en') return;
 
@@ -32,8 +42,8 @@ async function processLanguage(langCode, english, jsKeys) {
 
   function getTranslation(langCode, key, englishValue) {
     return promises.push(
-      translate(englishValue, {to: langCode}).then(
-        translation => (translations[key] = translation.text)
+      translate('en', langCode, englishValue).then(
+        translation => (translations[key] = translation)
       )
     );
   }
@@ -47,21 +57,25 @@ async function processLanguage(langCode, english, jsKeys) {
   // Translate all keys found in calls to
   // the i18n function in JavaScript files that were
   // not found in an overrides file or the English file.
-  for (const key of jsKeys) {
+  for (const key of sourceKeys) {
     if (!translations[key]) getTranslation(langCode, key, key);
   }
 
-  await Promise.all(promises);
+  try {
+    await Promise.all(promises);
 
-  // Write a new translation file for the current language.
-  writeJsonFile('public/' + langCode + '.json', translations);
+    // Write a new translation file for the current language.
+    writeJsonFile('public/' + langCode + '.json', translations);
+  } catch (e) {
+    console.error('processLanguage error:', e);
+  }
 }
 
 function getI18nKeys(dirPath) {
   const keys = [];
 
-  const jsFiles = getJsFiles(dirPath);
-  for (const file of jsFiles) {
+  const sourceFiles = getSourceFiles(dirPath);
+  for (const file of sourceFiles) {
     const content = fs.readFileSync(file, {encoding: 'utf8'});
     const re = /i18n\((.+)\)/g;
     let result;
@@ -74,22 +88,29 @@ function getI18nKeys(dirPath) {
   return keys;
 }
 
-function getJsFiles(dirPath) {
-  const jsFiles = [];
+function getSourceFiles(dirPath) {
+  const sourceFiles = [];
   try {
     const files = fs.readdirSync(dirPath);
     for (const file of files) {
       const stat = fs.statSync(dirPath + '/' + file);
       const filePath = dirPath + '/' + file;
       if (stat.isDirectory()) {
-        const moreJsFiles = getJsFiles(filePath);
-        jsFiles.push(...moreJsFiles);
-      } else if (file.endsWith('.js')) jsFiles.push(filePath);
+        const moreJsFiles = getSourceFiles(filePath);
+        sourceFiles.push(...moreJsFiles);
+      } else if (isSourceFile(file)) sourceFiles.push(filePath);
     }
-    return jsFiles;
+    return sourceFiles;
   } catch (e) {
-    console.error('getJsFiles error:', e);
+    console.error('getSourceFiles error:', e);
   }
+}
+
+const sourceExtensions = ['js', 'jsx', 'ts', 'tsx'];
+export function isSourceFile(file) {
+  const index = file.lastIndexOf('.');
+  const extension = file.substring(index + 1);
+  return sourceExtensions.includes(extension);
 }
 
 function readJsonFile(filePath) {
@@ -104,7 +125,7 @@ function readJsonFile(filePath) {
   }
 }
 
-function removeQuotes(text) {
+export function removeQuotes(text) {
   const [firstChar] = text;
   if (firstChar === "'" || firstChar === '"') {
     const lastChar = text[text.length - 1];
@@ -119,4 +140,8 @@ function writeJsonFile(filePath, obj) {
   fs.writeFileSync(filePath, JSON.stringify(obj, sortedKeys, 2));
 }
 
-generateTranslations();
+try {
+  generateTranslations();
+} catch (e) {
+  console.error(e);
+}

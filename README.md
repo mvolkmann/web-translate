@@ -10,12 +10,35 @@ a command that make language translation in web applications very easy!
 It is not specific to any framework and should work with
 all the popular choices including React, Vue, and Angular.
 
+## No Free Lunch
+
+The most highly recommended language translation services
+are Google Cloud Translation API and Yandex Translate Service.
+Both require an API key.
+
+The Google Cloud Translation API requires setup of
+a Google Cloud Platform (GCP) project.
+It charges $20 (USD) per million characters translated.
+Information on obtaining a Google API key can be found at
+<https://cloud.google.com/translate/>.
+
+The Yandex Translate Service has free and commercial levels.
+The free level currently allows up to 1,000,000 characters per day,
+but not more than 10,000,000 per month.
+The commercial level pricing is documented at
+<https://translate.yandex.com/developers/offer/prices>.
+Currently it charges $15 (USD) per million characters translated
+up to 50 million. The rates go down slowly above that.
+Information on obtaining a Yandex API key can be found at
+<https://tech.yandex.com/translate/>.
+
 ## Setup
 
 To use this package,
 
 1. `npm install web-translate`
-2. Add the following npm script in the `package.json` file for your application.\
+2. Set the environment variable `API_KEY` to the API key for the desired service.
+3. Add the following npm script in the `package.json` file for your application.\
    `"gentran": "generate-translations",`
 
 ## Supported Written Languages
@@ -93,7 +116,9 @@ Here is a description of what this does.
 
 1. Get all the languages to be supported from the file `languages.json`.
 2. Get all the literal strings passed to the `i18n` function
-   in all the `.js` files under the `src` directory.
+   in all the source files under the `src` directory
+   where source files are any with an
+   extension of "js", "jsx", "ts", or "tsx".
 3. Get all the English translations from the file `en.json`.
 4. For each language to be supported except English ...
    1. Set `translations` to all the translations found
@@ -104,7 +129,7 @@ Here is a description of what this does.
       - If there is not already a translation for this key,
         get the translation for the value from Google Translate
         and save it in `translations`.
-   3. For each key found in `.js` files ...
+   3. For each key found in source files ...
       - If there is not already a translation for this key,
         get the translation for the value from Google Translate
         and save it in `translations`.
@@ -178,7 +203,7 @@ Run `npm run gentran` again whenever:
   in `languages.json`
 - new translations are added in the English file `en.json`
 - a changes is made in a language-specific `-overrides.json` file
-- new calls to `i18n` with literal strings are added in any `.js` file,
+- new calls to `i18n` with literal strings are added in any source file,
   or the literal strings passed to existing calls are modified,
   and translations for the new values are not already present
   in all the language `.json` files
