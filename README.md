@@ -145,7 +145,7 @@ Here is a description of what this does.
 If the `i18n` function is passed a variable instead of literal string,
 no translations will be provided. This is because tracing the flow
 of the code to find all possible values is a very hard problem.
-In these cases, manually all the desired translations in the `en.json` file.
+In these cases, manually enter the desired translations in the `en.json` file.
 That will enable translations for all the other supported languages
 to be generated.
 
@@ -241,7 +241,7 @@ In our example add, we begin with the following files:
 
 ```json
 {
-  "Hello": "Oh La"
+  "Hello": "Hola"
 }
 ```
 
@@ -271,8 +271,8 @@ in the `es.json` file.
 We see "some-key" because `es.json` does not yet
 provide a translation for that key.
 
-After running `npm run gentran` the files `es.json` and `fr.json`
-contain translations for both "Hello" and "some-key".
+Run `npm run gentran`. This generates the files `es.json` and `fr.json`
+which will now contain translations for both "Hello" and "some-key".
 Depending on your build process, the app may automatically
 re-render in the browser.
 When "French" is selected from the dropdown
@@ -282,35 +282,35 @@ When "Spanish" is selected we see still "Hola",
 but we now see the Spanish translation
 for "My English Key" which is "Mi clave en inglés".
 
-If we add the following lines to `languages.json`:
+Add the following lines to `languages.json`:
 
 ```json
 "German": "de",
 "Russian": "ru"
 ```
 
-and run `npm run gentran` again,
-the language dropdown will contain "German" and "Russian"
-and selecting those languages will display their translations.
+Run `npm run gentran` again.
+The language dropdown will now contain "German" and "Russian".
+Selecting these languages will display their translations.
 
-If we add the following in `App.js`
+Add the following in `App.js`:
 
 ```js
 <div>{i18n('Where is your pencil?`)}</div>
 ```
 
-and run `npm run gentran` again,
-we will see that text for English.
-Select a different language from the dropdown
-will display the translation for that text.
+Run `npm run gentran` again.
+We will now see that text for English.
+Select different languages from the dropdown
+to display the translation for this text.
 
 Sometimes the translations provided by Google Translate
 will not be ideal for the application.
-To override translations, we just need to create
-a language-specific "-override.json" file.
-For example, to cause "Oh La" to be displayed
-instead of "Hola" for the Spanish translation of "Hello",
-we need the following `es-override.json` file.
+To override translations, create a language-specific
+"-override.json" file.
+For example, to display "Oh La" instead of "Hola"
+for the Spanish translation of "Hello", create the
+file `es-override.json` with the following content:
 
 ```json
 {
@@ -318,7 +318,11 @@ we need the following `es-override.json` file.
 }
 ```
 
-After running `npm run gentran` again and selecting "Spanish"
-from the dropdown, that translation will be displayed.
+Run `npm run gentran` again.
+Selecting "Spanish" from the dropdown.
+The new translation for "Hello" in Spanish will now be displayed.
 
-Can it possibly be any easier than this? I don't think so!
+## Summary
+
+web-translate provides the simplest approach to
+language translations in web applications that I have seen!
