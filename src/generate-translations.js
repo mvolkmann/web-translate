@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import {setApiKey, translate} from './translate';
+import {setApiKey, setTranslateService, translate} from './translate';
 
-const {API_KEY} = process.env;
+const {API_KEY, TRANSLATE_SERVICE} = process.env;
 if (!API_KEY) {
   throw new Error(
     'The environment variable API_KEY must set for a language translation service.'
   );
 }
 setApiKey(API_KEY);
+
+if (TRANSLATE_SERVICE) {
+  setTranslateService(TRANSLATE_SERVICE);
+}
 
 async function generateTranslations() {
   // Get all the languages to be supported.
