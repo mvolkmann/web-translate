@@ -66,8 +66,8 @@ function getI18nKeys(dirPath) {
     const re = /i18n\((.+)\)/g;
     let result;
     while ((result = re.exec(content))) {
-      const [, key] = result;
-      keys.push(removeQuotes(key));
+      const key = removeQuotes(result[1]);
+      if (key) keys.push(key);
     }
   }
 
@@ -110,7 +110,8 @@ function removeQuotes(text) {
     const lastChar = text[text.length - 1];
     if (lastChar === firstChar) return text.slice(1, -1);
   }
-  return text;
+  // If the string is not surrounded by matching quotes,
+  // nothing is returned.
 }
 
 function writeJsonFile(filePath, obj) {
