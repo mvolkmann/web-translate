@@ -14,6 +14,27 @@ The translations are performed as a build step,
 so no cost for translation services is incurred
 during usage of web applications.
 
+## Goals
+
+The goals for this library are:
+
+- Determine required translations by parsing source files
+  for calls to a certain function.
+- Determine additional required translations by parsing
+  a JSON file containing English translations.
+- Support selecting between the two most popular
+  translation services, Google Cloud Translate API
+  and Yandex Translate Service.
+- Support build-time translation to avoid incurring
+  run-time translation costs for each user session.
+- Support easily generating translations
+  for new languages to be supported.
+- Allow generated translations to be overridden
+  by manually creating language-specific JSON files
+  that describe the desired translations.
+- Support run-time translations for the rare cases
+  where dynamically generated text must be translated.
+
 ## No Free Lunch
 
 The most highly recommended language translation services are
