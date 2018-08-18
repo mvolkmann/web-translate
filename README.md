@@ -4,6 +4,8 @@ Creating web applications that display text in
 a variety of written languages is a common need.
 One might think this is a solved problem and that simple solutions exist.
 I have not found any that fit the bill, so I created web-translate.
+This is an open source library that can be obtain via npm at
+<https://www.npmjs.com/package/web-translate>.
 
 This is an npm package that provides a set of JavaScript functions and
 a command that make language translation in web applications very easy!
@@ -248,7 +250,7 @@ from English to French,
 
 ```js
 const text = 'I like strawberry pie!';
-const translatedText = translate('en', 'fr', text);
+const translatedText = await translate('en', 'fr', text);
 ```
 
 ## Example App
