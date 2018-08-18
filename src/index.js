@@ -1,3 +1,5 @@
+export {translate} from './translate';
+
 let languageCode;
 let translations = {};
 

@@ -1,13 +1,13 @@
-import realTranslate from 'translate';
+import translate2 from 'translate';
 
-realTranslate.engine = 'yandex';
+translate2.engine = 'yandex';
 
 export function setApiKey(apiKey) {
-  realTranslate.key = apiKey;
+  translate2.key = apiKey;
 }
 
 export function setEngine(engine) {
-  realTranslate.engine = engine;
+  translate2.engine = engine;
 }
 
 /**
@@ -16,6 +16,6 @@ export function setEngine(engine) {
  * `from` and `to` are language codes.
  */
 export function translate(from, to, text) {
-  realTranslate.from = from;
-  return realTranslate(text, {to});
+  translate2.from = from;
+  return translate2(text, {to});
 }

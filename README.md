@@ -236,6 +236,21 @@ Run `npm run gentran` again whenever:
   and translations for the new values are not already present
   in all the language `.json` files
 
+## Dynamic Translation
+
+Some web apps may need to dynamically generate text that requires translation.
+This can be accomplished using the `translate` function.
+It takes a "from" language code, at "to" language code,
+and the text to be translated.
+
+For example, to translate "I like strawberry pie!"
+from English to French,
+
+```js
+const text = 'I like strawberry pie!';
+const translatedText = translate('en', 'fr', text);
+```
+
 ## Example App
 
 In our example add, we begin with the following files:
@@ -342,6 +357,13 @@ file `es-override.json` with the following content:
 Run `npm run gentran` again.
 Selecting "Spanish" from the dropdown.
 The new translation for "Hello" in Spanish will now be displayed.
+
+## Acknowledgements
+
+web-translate uses the npm package translate from
+Francisco Presencia (franciscop on GitHub).
+See <https://www.npmjs.com/package/translate>.
+Thank you Francisco!
 
 ## Summary
 
