@@ -2,7 +2,7 @@ import 'babel-polyfill';
 export {translate} from './translate';
 
 let languageCode;
-let translations = {};
+const translations = {};
 
 export function getDefaultLanguage() {
   if (typeof navigator === 'undefined') return 'en';
@@ -12,7 +12,8 @@ export function getDefaultLanguage() {
   return langCountry.split('-')[0];
 }
 
-export async function getJson(url) {
+export function getJson(url) {
+  /*
   try {
     const result = await fetch(url);
     const obj = await result.json();
@@ -20,6 +21,10 @@ export async function getJson(url) {
   } catch (e) {
     return {};
   }
+  */
+  return fetch(url)
+    .then(res => res.json())
+    .catch(() => ({}));
 }
 
 export const getLanguageCode = () => languageCode;
@@ -30,10 +35,9 @@ export const haveTranslations = () => Object.keys(translations).length > 0;
 
 export const i18n = key => translations[key] || key;
 
-export async function setLanguage(code) {
+export function setLanguage(code) {
   languageCode = code;
-  translations = await getJson(code + '.json');
-  console.log('web-translate setLanguage: translations =', translations);
+  return getJson(code + '.json');
 }
 
 setLanguage(getDefaultLanguage());
