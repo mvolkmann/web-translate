@@ -7,14 +7,14 @@ I have not found any that fit the bill, so I created web-translate.
 This is an open source library that can be obtain via npm at
 <https://www.npmjs.com/package/web-translate>.
 
-This is an npm package that provides a set of JavaScript functions and
+web-translate provides a set of JavaScript functions and
 a command that make language translation in web applications very easy!
 It is not specific to any framework and should work with
 all the popular choices including React, Vue, and Angular.
 
 The translations are performed as a build step,
 so no cost for translation services is incurred
-during usage of web applications.
+during web application usage.
 
 ## Goals
 
@@ -28,7 +28,7 @@ The goals for this library are:
   translation services, Google Cloud Translate API
   and Yandex Translate Service.
 - Support build-time translation to avoid incurring
-  run-time translation costs for each user session.
+  run-time translation costs during each user session.
 - Support easily generating translations
   for new languages to be supported.
 - Allow generated translations to be overridden
@@ -45,7 +45,7 @@ Both require an API key.
 
 The Google Cloud Translation API requires setup of
 a Google Cloud Platform (GCP) project.
-It charges $20 (USD) per million characters translated.
+The cost is $20 (USD) per million characters translated.
 Information on obtaining a Google API key can be found at
 <https://cloud.google.com/translate/>.
 
@@ -54,26 +54,26 @@ The free tier currently allows translating up to 1,000,000 characters per day,
 but not more than 10,000,000 per month.
 The commercial tier pricing is documented at
 <https://translate.yandex.com/developers/offer/prices>.
-Currently it charges $15 (USD) per million characters translated
+Currently the cost is $15 (USD) per million characters translated
 up to 50 million. The rates go down slowly above that.
 Information on obtaining a Yandex API key can be found at
 <https://tech.yandex.com/translate/>.
 
 ## Setup
 
-To use this package,
+To use the web-translate package,
 
 1. `npm install web-translate`
-2. Set the environment variable `API_KEY` to the API key for the desired service.
-3. Set the environment variable `TRANSLATE_ENGINE` to "google" or "yandex".
+2. Set the environment variable `TRANSLATE_ENGINE` to "google" or "yandex".
    When not set, this defaults to "yandex" because that has a free tier.
+3. Set the environment variable `API_KEY` to the API key for the desired service.
 4. Add the following npm script in the `package.json` file for your application.\
    `"gentran": "generate-translations",`
 
 ## Supported Written Languages
 
 Create the file `languages.json` to describe the languages to be supported.
-More can easily be added later. For example,
+For example,
 
 ```json
 {
@@ -90,16 +90,16 @@ It is important to get the language codes (like "en") correct
 because those are used to request translations.
 
 This file must be in a directory that is accessible at the domain of the web app.
-For example, if your web app is running on `localhost:3000`
+For example, if your web application is running on `localhost:3000`
 then an HTTP GET request to `localhost:3000/language.json`
 must return the content of this file.
-For a React app created with create-react-app,
+For a React application created with create-react-app,
 placing this file in the `public` directory will achieve this.
 
 ## Getting Translations
 
 Use the `i18n` function to get translations.
-For example, when the language is Spanish
+For example, when the language is Spanish then
 calling `i18n('Hello')` might return "Hola".
 The string passed to the `i18n` function can be
 English text or a key used to lookup the translation
@@ -124,7 +124,7 @@ Translations of all the text for all supported languages
 can be manually entered in language-specific JSON files
 like `es.json` (for Spanish) and `fr.json` (for French).
 However as we will see next, these files can be generated
-using the Google Translate API.
+using one of the supported translation services.
 
 In some cases it may be desirable to use different translations.
 Those provided by the translation service can be overridden by
@@ -154,7 +154,7 @@ Here is a description of what this does.
    extension of "js", "jsx", "ts", or "tsx".
 3. Get all the English translations from the file `en.json`.
 4. For each language to be supported except English ...
-   1. Set `translations` to all the translations found
+   1. Set `translations` to a map of all the translations found
       in an overrides file for the current language
       (ex. `fr-overrides.json`).
       If none exist then `translations` begins empty.
@@ -168,11 +168,15 @@ Here is a description of what this does.
         and save it in `translations`.
    4. Write `translations` to a new translation file for the current language.
 
+If you choose to generate the translation files,
+and you should, remember not to manually edit them because
+they will be overwritten the next time `npm run gentran` is run.
+
 If the `i18n` function is passed a variable instead of literal string,
 no translations will be provided. This is because tracing the flow
 of the code to find all possible values is a very hard problem.
 In these cases, manually enter the desired translations in the `en.json` file.
-That will enable translations for all the other supported languages
+This will enable translations for all the other supported languages
 to be generated.
 
 ## Allowing User to Select Language
@@ -219,7 +223,6 @@ class App extends Component {
         </div>
         <div>{i18n('Hello')}</div>
         <div>{i18n('some-key')}</div>
-        <div>{i18n('I love strawberry pie!')}</div>
       </div>
     );
   }
@@ -229,25 +232,25 @@ export default App;
 ```
 
 With watch and live reload (as supported by create-react-app),
-changes to the list of supported languages and their translations
-are made available in the running app seconds after they are saved.
+changes to the list of supported languages and their translations are
+made available in the running application seconds after they are saved.
 
-Run `npm run gentran` again whenever:
+Run `npm run gentran` again whenever any of the following occur:
 
-- new languages are added to the list of supported languages
-  in `languages.json`
-- new translations are added in the English file `en.json`
-- a changes is made in a language-specific `-overrides.json` file
-- new calls to `i18n` with literal strings are added in any source file,
+- New languages are added to the list of supported languages
+  in `languages.json`.
+- New translations are added in the English file `en.json`.
+- A changes is made in a language-specific `-overrides.json` file.
+- New calls to `i18n` with literal strings are added in any source file,
   or the literal strings passed to existing calls are modified,
   and translations for the new values are not already present
-  in all the language `.json` files
+  in all the language `.json` files.
 
 ## Dynamic Translation
 
-Some web apps may need to dynamically generate text that requires translation.
+Some web applications may need to dynamically generate text that requires translation.
 This can be accomplished using the `translate` function.
-It takes a "from" language code, at "to" language code,
+It takes a "from" language code, a "to" language code,
 and the text to be translated.
 
 For example, to translate "I like strawberry pie!"
@@ -260,11 +263,11 @@ const translatedText = await translate('en', 'fr', text);
 
 Bear in mind that run-time translation will incur per user session
 charges from the selected translation service.
-Avoid using this when possible.
+Avoid using this approach when possible.
 
-## Example App
+## Example Application
 
-In our example add, we begin with the following files:
+In our example application, we begin with the following files:
 
 ### languages.json
 
@@ -292,19 +295,19 @@ In our example add, we begin with the following files:
 }
 ```
 
-## App.json
+## App.js
 
 Inside the render method we have:
 
-```json
+```jsx
 <div>{i18n('Hello')}</div>
 <div>{i18n('some-key')}</div>
 ```
 
-Before running `npm run gentran` when the app is rendered
-we will see the the languages "English", "French", and "Spanish"
+Before running `npm run gentran` when the application is rendered
+we see the the languages "English", "French", and "Spanish"
 in the language dropdown with "English" selected.
-We will also see "Hello" and "My English Key"
+We also see "Hello" and "My English Key"
 as the results of the `i18n` calls.
 
 Selecting "French" from the dropdown
@@ -320,7 +323,7 @@ provide a translation for that key.
 
 Run `npm run gentran`. This generates the files `es.json` and `fr.json`
 which will now contain translations for both "Hello" and "some-key".
-Depending on your build process, the app may automatically
+Depending on your build process, the application may automatically
 re-render in the browser.
 When "French" is selected from the dropdown
 we see "Bonjour" and "Ma clé anglaise" which are
@@ -347,14 +350,14 @@ Add the following in `App.js`:
 ```
 
 Run `npm run gentran` again.
-We will now see that text for English.
-Select different languages from the dropdown
+We now see that text for English.
+Select other languages from the dropdown
 to display the translation for this text.
 
 Sometimes the translations provided by Google Translate
 will not be ideal for the application.
 To override translations, create a language-specific
-"-override.json" file.
+`-override.json` file.
 For example, to display "Oh La" instead of "Hola"
 for the Spanish translation of "Hello", create the
 file `es-override.json` with the following content:
@@ -366,12 +369,12 @@ file `es-override.json` with the following content:
 ```
 
 Run `npm run gentran` again.
-Selecting "Spanish" from the dropdown.
-The new translation for "Hello" in Spanish will now be displayed.
+Select "Spanish" from the dropdown.
+The new translation for "Hello" in Spanish will be displayed.
 
 ## Acknowledgements
 
-web-translate uses the npm package translate from
+web-translate uses the npm package "translate" from
 Francisco Presencia (franciscop on GitHub).
 See <https://www.npmjs.com/package/translate>.
 Thank you Francisco!
@@ -380,3 +383,5 @@ Thank you Francisco!
 
 web-translate provides the simplest approach to
 language translations in web applications that I have seen!
+Please post suggestions for improvements and any issues at
+<https://github.com/mvolkmann/web-translate/issues>.
