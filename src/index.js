@@ -1,7 +1,7 @@
 export {translate} from './translate';
 
 let languageCode;
-const translations = {};
+let translations = {};
 
 export function getDefaultLanguage() {
   if (typeof navigator === 'undefined') return 'en';
@@ -26,7 +26,7 @@ export const i18n = key => translations[key] || key;
 
 export function setLanguage(code) {
   languageCode = code;
-  return getJson(code + '.json');
+  return getJson(code + '.json').then(t => (translations = t));
 }
 
 setLanguage(getDefaultLanguage());

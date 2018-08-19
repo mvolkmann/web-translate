@@ -77,8 +77,11 @@ More can easily be added later. For example,
 
 ```json
 {
+  "Chinese": "zh",
   "English": "en",
   "French": "fr",
+  "German": "de",
+  "Russian": "ru",
   "Spanish": "es"
 }
 ```
@@ -181,7 +184,9 @@ I welcome contribution of code for other frameworks
 to share here.
 
 ```js
-import {getSupportedLanguages, setLanguage, i18n} from './translate';
+import React, {Component} from 'react';
+import {getSupportedLanguages, i18n, setLanguage} from 'web-translate';
+import './App.css';
 
 class App extends Component {
   state = {languages: {}};
