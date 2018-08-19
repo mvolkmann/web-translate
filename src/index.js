@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 export {translate} from './translate';
 
 let languageCode;
