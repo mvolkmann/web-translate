@@ -11,20 +11,10 @@ export function getDefaultLanguage() {
   return langCountry.split('-')[0];
 }
 
-export function getJson(url) {
-  /*
-  try {
-    const result = await fetch(url);
-    const obj = await result.json();
-    return obj;
-  } catch (e) {
-    return {};
-  }
-  */
-  return fetch(url)
+export const getJson = url =>
+  fetch(url)
     .then(res => res.json())
     .catch(() => ({}));
-}
 
 export const getLanguageCode = () => languageCode;
 

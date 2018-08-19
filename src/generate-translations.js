@@ -16,7 +16,7 @@ if (TRANSLATE_ENGINE) {
   setEngine(TRANSLATE_ENGINE);
 }
 
-async function generateTranslations() {
+function generateTranslations() {
   // Get all the languages to be supported.
   const languages = readJsonFile('public/languages.json');
 
@@ -32,10 +32,10 @@ async function generateTranslations() {
     processLanguage(langCode, english, sourceKeys)
   );
 
-  await Promise.all(promises);
+  return Promise.all(promises);
 }
 
-async function processLanguage(langCode, english, sourceKeys) {
+function processLanguage(langCode, english, sourceKeys) {
   // Don't generate translations for English.
   if (langCode === 'en') return;
 
@@ -66,14 +66,10 @@ async function processLanguage(langCode, english, sourceKeys) {
     if (!translations[key]) getTranslation(langCode, key, key);
   }
 
-  try {
-    await Promise.all(promises);
-
-    // Write a new translation file for the current language.
-    writeJsonFile('public/' + langCode + '.json', translations);
-  } catch (e) {
-    console.error('processLanguage error:', e);
-  }
+  // Write new translation files for each language.
+  Promise.all(promises)
+    .then(() => writeJsonFile('public/' + langCode + '.json', translations))
+    .catch(e => console.error('processLanguage error:', e));
 }
 
 function getI18nKeys(dirPath) {
@@ -145,8 +141,4 @@ function writeJsonFile(filePath, obj) {
   fs.writeFileSync(filePath, JSON.stringify(obj, sortedKeys, 2));
 }
 
-try {
-  generateTranslations();
-} catch (e) {
-  console.error(e);
-}
+generateTranslations();
