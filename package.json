@@ -2,7 +2,7 @@
   "name": "web-translate",
   "description": "supports language translation in web applications",
   "author": "R. Mark Volkmann <r.mark.volkmann@gmail.com> (http://mvolkmann.github.io)",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "keywords": [
     "language",
     "translation",
@@ -25,7 +25,6 @@
     "test": "jest --testPathPattern=src/"
   },
   "dependencies": {
-    "google-translate-api": "^2.3.0",
     "translate": "^1.0.2"
   },
   "devDependencies": {
