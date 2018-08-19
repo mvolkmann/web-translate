@@ -6,7 +6,8 @@ import {setApiKey, setEngine, translate} from './translate';
 const {API_KEY, TRANSLATE_ENGINE} = process.env;
 if (!API_KEY) {
   throw new Error(
-    'The environment variable API_KEY must set for a language translation service.'
+    'The environment variable API_KEY must be set ' +
+      'to use a language translation service.'
   );
 }
 setApiKey(API_KEY);
