@@ -65,7 +65,7 @@ To use this package,
 
 1. `npm install web-translate`
 2. Set the environment variable `API_KEY` to the API key for the desired service.
-3. Set the environment variable `TRANSLATE_SERVICE` to "google" or "yandex".
+3. Set the environment variable `TRANSLATE_ENGINE` to "google" or "yandex".
    When not set, this defaults to "yandex" because that has a free tier.
 4. Add the following npm script in the `package.json` file for your application.\
    `"gentran": "generate-translations",`
