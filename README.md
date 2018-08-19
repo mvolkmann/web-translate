@@ -253,7 +253,7 @@ const text = 'I like strawberry pie!';
 const translatedText = await translate('en', 'fr', text);
 ```
 
-Bear in mind that runtime translation will incur per user session
+Bear in mind that run-time translation will incur per user session
 charges from the selected translation service.
 Avoid using this when possible.
 
