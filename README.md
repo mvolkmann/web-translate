@@ -46,8 +46,21 @@ Both require an API key.
 The Google Cloud Translation API requires setup of
 a Google Cloud Platform (GCP) project.
 The cost is $20 (USD) per million characters translated.
-Information on obtaining a Google API key can be found at
-<https://cloud.google.com/translate/>.
+To enable use of the "Cloud Translation API" and obtain an API Key:
+
+- Browse <https://console.cloud.google.com/>, choose an account, and login.
+- Select the project for which you want to enable the Translation API
+  from the dropdown near the top.
+- Scroll down and click "API Enable APIs and get credentials like keys".
+- Click "Enable APIs and Service" at the top.
+- Enter "translation" in the search input.
+- Click "Cloud Translation API" which is not enabled by default.
+- Press the "Enable" button.
+- Click "Google Cloud Platform" in the upper-left to return to the project page.
+- Scroll down and click "API Enable APIs and get credentials like keys" again.
+- Click "Credentials" in the left nav.
+- Click the "Create Credentials" dropdown and select "API key".
+- Copy this API Key to a secure location.
 
 The Yandex Translate Service has free and commercial tiers.
 The free tier currently allows translating up to 1,000,000 characters per day,
