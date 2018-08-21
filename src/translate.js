@@ -1,4 +1,4 @@
-import translate2 from 'translate';
+import translate2 from './translate-franciscop/index';
 
 translate2.engine = 'yandex';
 
