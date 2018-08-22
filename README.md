@@ -387,10 +387,12 @@ The new translation for "Hello" in Spanish will be displayed.
 
 ## Acknowledgements
 
-web-translate uses the npm package "translate" from
+web-translate uses code from the npm package "translate" from
 Francisco Presencia (franciscop on GitHub).
 See <https://www.npmjs.com/package/translate>.
 Thank you Francisco!
+
+Thanks to AJ Levinson for details on getting a Google Cloud Platform API key!
 
 ## Summary
 
