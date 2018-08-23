@@ -20,12 +20,12 @@ function generateTranslations() {
   // Get all the languages to be supported.
   const languages = readJsonFile('public/languages.json');
 
+  // Get all the English translations.
+  const english = readJsonFile('public/en.json');
+
   // Get all the strings passed to the i18n function
   // in all the source files under the src directory.
   const sourceKeys = getI18nKeys('src');
-
-  // Get all the English translations.
-  const english = readJsonFile('public/en.json');
 
   // For each language to be supported ...
   const promises = Object.values(languages).map(langCode =>
@@ -39,7 +39,7 @@ function processLanguage(langCode, english, sourceKeys) {
   // Don't generate translations for English.
   if (langCode === 'en') return;
 
-  const promises = [];
+  let promises = [];
 
   // Translations in a language-specific override files take precedence.
   const overrides = readJsonFile('public/' + langCode + '-overrides.json');
@@ -58,17 +58,24 @@ function processLanguage(langCode, english, sourceKeys) {
   for (const [key, value] of Object.entries(english)) {
     if (!translations[key]) getTranslation(langCode, key, value);
   }
-
-  // Translate all keys found in calls to
-  // the i18n function in JavaScript files that were
-  // not found in an overrides file or the English file.
-  for (const key of sourceKeys) {
-    if (!translations[key]) getTranslation(langCode, key, key);
-  }
-
-  // Write new translation files for each language.
+  // Wait for all translations for en.json to complete.
   Promise.all(promises)
-    .then(() => writeJsonFile('public/' + langCode + '.json', translations))
+    .then(() => {
+      promises = [];
+
+      // Translate all keys found in calls to
+      // the i18n function in JavaScript files that were
+      // not found in an overrides file or the English file.
+      for (const key of sourceKeys) {
+        if (!translations[key]) getTranslation(langCode, key, key);
+      }
+
+      // Wait for all translations for i18n calls to complete.
+      Promise.all(promises)
+        // Write a new translation file for this language.
+        .then(() => writeJsonFile('public/' + langCode + '.json', translations))
+        .catch(e => console.error('processLanguage error:', e));
+    })
     .catch(e => console.error('processLanguage error:', e));
 }
 
