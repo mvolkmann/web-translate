@@ -15,8 +15,7 @@ export const getJson = url =>
   fetch(url)
     .then(res => res.json())
     .catch(e => {
-      console.error('web-translate getJson error:', e);
-      console.error('web-translate getJson: url =', url);
+      console.error('web-translate getJson error:', e.message, '; url =', url);
       return {};
     });
 
@@ -32,7 +31,7 @@ export function setLanguage(code) {
   languageCode = code;
   return getJson(code + '.json')
     .then(t => (translations = t))
-    .catch(e => console.error('web-translate setLanguage error:', e));
+    .catch(e => console.error('web-translate setLanguage error:', e.message));
 }
 
 setLanguage(getDefaultLanguage());
