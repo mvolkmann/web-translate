@@ -7,7 +7,7 @@ I have not found any that fit the bill, so I created web-translate.
 This is an open source library that can be obtained via npm at
 <https://www.npmjs.com/package/web-translate>.
 
-web-translate provides a set of JavaScript functions and
+The web-translate library provides a set of JavaScript functions and
 a command that make language translation in web applications very easy!
 It is not specific to any framework and should work with
 all the popular choices including React, Vue, and Angular.
@@ -15,6 +15,10 @@ all the popular choices including React, Vue, and Angular.
 The translations are performed as a build step,
 so no cost for translation services is incurred
 during web application usage.
+
+This library is English-centric from the
+standpoint that it assumes all translations
+will be driven from initial text that is English.
 
 ## Goals
 
@@ -100,8 +104,8 @@ For example,
 ```
 
 It is important to get the language codes (like "en") correct
-because those are used to request translations.  You can find a
-list of valid language codes at 
+because those are used to request translations. You can find a
+list of valid language codes at
 <https://www.wikipedia.org/wiki/List_of_ISO_639-1_codes/>
 
 This file must be in a directory that is accessible at the domain of the web app.
@@ -114,6 +118,7 @@ placing this file in the `public` directory will achieve this.
 ## Getting Translations
 
 Use the `i18n` function to get translations.
+This can be imported with `import {i18n} from 'web-translate';`
 For example, when the language is Spanish then
 calling `i18n('Hello')` might return "Hola".
 The string passed to the `i18n` function can be
@@ -204,31 +209,38 @@ to share here.
 
 ```js
 import React, {Component} from 'react';
-import {getSupportedLanguages, i18n, setLanguage} from 'web-translate';
+import {
+  getLanguageCode,
+  getSupportedLanguages,
+  i18n,
+  setLanguage
+} from 'web-translate';
 import './App.css';
 
 class App extends Component {
   state = {languages: {}};
 
   async componentDidMount() {
+    const languageCode = getLanguageCode();
     const languages = await getSupportedLanguages();
-    this.setState({languages});
+    this.setState({languageCode, languages});
   }
 
   changeLanguage = async event => {
-    await setLanguage(event.target.value);
-    this.forceUpdate();
+    const languageCode = event.target.value;
+    await setLanguage(languageCode);
+    this.setState({languageCode});
   };
 
   render() {
-    const {languages} = this.state;
+    const {languageCode, languages} = this.state;
     const languageNames = Object.keys(languages);
 
     return (
       <div className="App">
         <div>
           <label>Language:</label>
-          <select onChange={this.changeLanguage}>
+          <select onChange={this.changeLanguage} value={languageCode}>
             {languageNames.map(name => (
               <option key={name} value={languages[name]}>
                 {name}
@@ -263,7 +275,8 @@ Run `npm run gentran` again whenever any of the following occur:
 
 ## Dynamic Translation
 
-Some web applications may need to dynamically generate text that requires translation.
+Some web applications may need to dynamically
+generate text that requires translation.
 This can be accomplished using the `translate` function.
 It takes a "from" language code, a "to" language code,
 and the text to be translated.
@@ -275,6 +288,10 @@ from English to French,
 const text = 'I like strawberry pie!';
 const translatedText = await translate('en', 'fr', text);
 ```
+
+This requires ensuring that the `TRANSLATE_ENGINE` and `API_KEY`
+environment variables are set in the environment
+where the web app is running.
 
 Bear in mind that run-time translation will incur per user session
 charges from the selected translation service.
