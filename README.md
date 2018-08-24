@@ -4,7 +4,7 @@ Creating web applications that display text in
 a variety of written languages is a common need.
 One might think this is a solved problem and that simple solutions exist.
 I have not found any that fit the bill, so I created web-translate.
-This is an open source library that can be obtain via npm at
+This is an open source library that can be obtained via npm at
 <https://www.npmjs.com/package/web-translate>.
 
 web-translate provides a set of JavaScript functions and
@@ -100,11 +100,13 @@ For example,
 ```
 
 It is important to get the language codes (like "en") correct
-because those are used to request translations.
+because those are used to request translations.  You can find a
+list of valid language codes at 
+<https://www.wikipedia.org/wiki/List_of_ISO_639-1_codes/>
 
 This file must be in a directory that is accessible at the domain of the web app.
 For example, if your web application is running on `localhost:3000`
-then an HTTP GET request to `localhost:3000/language.json`
+then an HTTP GET request to `localhost:3000/languages.json`
 must return the content of this file.
 For a React application created with create-react-app,
 placing this file in the `public` directory will achieve this.
@@ -359,7 +361,7 @@ Selecting these languages will display their translations.
 Add the following in `App.js`:
 
 ```js
-<div>{i18n('Where is your pencil?`)}</div>
+<div>{i18n('Where is your pencil?')}</div>
 ```
 
 Run `npm run gentran` again.
