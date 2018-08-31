@@ -267,7 +267,7 @@ Run `npm run gentran` again whenever any of the following occur:
 - New languages are added to the list of supported languages
   in `languages.json`.
 - New translations are added in the English file `en.json`.
-- A changes is made in a language-specific `-overrides.json` file.
+- A change is made in a language-specific `-overrides.json` file.
 - New calls to `i18n` with literal strings are added in any source file,
   or the literal strings passed to existing calls are modified,
   and translations for the new values are not already present
@@ -329,7 +329,7 @@ In our example application, we begin with the following files:
 
 ## App.js
 
-Inside the render method we have:
+Inside the `render` method we have:
 
 ```jsx
 <div>{i18n('Hello')}</div>
