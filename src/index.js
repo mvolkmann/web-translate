@@ -2,7 +2,7 @@ export {translate} from './translate';
 
 let languageCode;
 let translations = {};
-let urlPrefix = 'http://localhost:3000/';
+let urlPrefix = '/';
 
 export function getDefaultLanguage() {
   if (typeof navigator === 'undefined') return 'en';
