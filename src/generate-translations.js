@@ -46,11 +46,31 @@ function processLanguage(langCode, english, sourceKeys) {
   const translations = overrides;
 
   function getTranslation(langCode, key, englishValue) {
-    return promises.push(
-      translate('en', langCode, englishValue).then(
-        translation => (translations[key] = translation)
-      )
-    );
+    const re = /\$\{\w+\}/g;
+    const pieces = englishValue.split(re);
+
+    // If the English value does not contain any placeholders ...
+    if (pieces.length === 1) {
+      return promises.push(
+        translate('en', langCode, englishValue).then(
+          translation => (translations[key] = translation)
+        )
+      );
+    }
+
+    // Translate each piece outside the placeholders.
+    const piecePromises = pieces.map(piece => translate('en', langCode, piece));
+    Promise.all(piecePromises).then(pieceTranslations => {
+      // Find all the placeholders.
+      const placeholders = englishValue.match(re);
+
+      // Stitch the pieces together.
+      let [translation] = pieceTranslations;
+      placeholders.forEach((placeholder, index) => {
+        translation += placeholder + pieceTranslations[index + 1];
+      });
+      translations[key] = translation;
+    });
   }
 
   // Translate all English values for keys not found
@@ -58,6 +78,7 @@ function processLanguage(langCode, english, sourceKeys) {
   for (const [key, value] of Object.entries(english)) {
     if (!translations[key]) getTranslation(langCode, key, value);
   }
+
   // Wait for all translations for en.json to complete.
   Promise.all(promises)
     .then(() => {
