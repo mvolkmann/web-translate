@@ -39,6 +39,11 @@ export function i18n(key, data) {
   let t = translations[key] || key;
   if (!data) return t;
 
+  // Could use the Lodash template function for this.
+  //_.templateSettings.interpolate = /\${(\w+)}/g;
+  //const compiled = _.template(t);
+  //return compiled(data);
+
   for (const key of Object.keys(data)) {
     const value = data[key];
     const re = new RegExp('\\$\\{' + key + '\\}', 'g');
