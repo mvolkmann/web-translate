@@ -404,6 +404,24 @@ Run `npm run gentran` again.
 Select "Spanish" from the dropdown.
 The new translation for "Hello" in Spanish will be displayed.
 
+## Placeholders
+
+Translation text can contain placeholders for inserting dynamic text.
+For example, `en.json` could contain the following line:
+
+```json
+  "greet": "Hello ${name}, today is ${dayOfWeek}.",
+```
+
+To use this, pass a second argument to `i18n` that is an object
+where the keys are the placeholder names
+and the values are the values to be inserted.
+For example,
+
+```js
+i18n('greet', {name: 'Mark', dayOfWeek: 'Tuesday'});
+```
+
 ## Acknowledgements
 
 web-translate uses code from the npm package "translate" from
