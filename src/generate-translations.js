@@ -46,31 +46,35 @@ function processLanguage(langCode, english, sourceKeys) {
   const translations = overrides;
 
   function getTranslation(langCode, key, englishValue) {
-    const re = /\$\{\w+\}/g;
+    // Match placeholders that look like ${name}
+    // and tags that look like <name> or </name>.
+    const re = /(?:\$\{\w+\})|(?:<\/?\w+>)/g;
     const pieces = englishValue.split(re);
 
-    // If the English value does not contain any placeholders ...
+    // If the English value does not contain any placeholders or HTML tags ...
     if (pieces.length === 1) {
       return promises.push(
-        translate('en', langCode, englishValue).then(
-          translation => (translations[key] = translation)
-        )
+        translate('en', langCode, englishValue)
+          .then(translation => (translations[key] = translation))
+          .catch(e => console.error('ERROR in getTranslation 1:', e))
       );
     }
 
-    // Translate each piece outside the placeholders.
+    // Translate each piece outside the placeholders and HTML tags.
     const piecePromises = pieces.map(piece => translate('en', langCode, piece));
-    Promise.all(piecePromises).then(pieceTranslations => {
-      // Find all the placeholders.
-      const placeholders = englishValue.match(re);
+    Promise.all(piecePromises)
+      .then(pieceTranslations => {
+        // Find all the placeholders and HTML tags.
+        const placeholders = englishValue.match(re);
 
-      // Stitch the pieces together.
-      let [translation] = pieceTranslations;
-      placeholders.forEach((placeholder, index) => {
-        translation += placeholder + pieceTranslations[index + 1];
-      });
-      translations[key] = translation;
-    });
+        // Stitch the pieces together.
+        let [translation] = pieceTranslations;
+        placeholders.forEach((placeholder, index) => {
+          translation += placeholder + pieceTranslations[index + 1];
+        });
+        translations[key] = translation;
+      })
+      .catch(e => console.error('ERROR in getTranslation 2:', e));
   }
 
   // Translate all English values for keys not found
@@ -95,9 +99,9 @@ function processLanguage(langCode, english, sourceKeys) {
       Promise.all(promises)
         // Write a new translation file for this language.
         .then(() => writeJsonFile('public/' + langCode + '.json', translations))
-        .catch(e => console.error('processLanguage error:', e));
+        .catch(e => console.error('ERROR in getTranslation 3:', e));
     })
-    .catch(e => console.error('processLanguage error:', e));
+    .catch(e => console.error('ERROR in getTranslation 4:', e));
 }
 
 function getI18nKeys(dirPath) {

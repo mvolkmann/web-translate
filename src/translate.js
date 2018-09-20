@@ -16,6 +16,9 @@ export function setEngine(engine) {
  * `from` and `to` are language codes.
  */
 export function translate(from, to, text) {
+  // No need to translate whitespace.
+  if (!text.trim()) return text;
+
   translate2.from = from;
   return translate2(text, {to});
 }

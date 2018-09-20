@@ -17,4 +17,11 @@ describe('index', () => {
     const translation = i18n('name-age', {name: 'Mark', age: 57});
     expect(translation).toBe('Mark is 57 years old.');
   });
+
+  test('handles tags', () => {
+    // eslint-disable-next-line no-template-curly-in-string
+    addTranslation('html-demo', 'foo <bar> baz </bar> qux');
+    const translation = i18n('html-demo');
+    expect(translation).toBe('foo <bar> baz </bar> qux');
+  });
 });

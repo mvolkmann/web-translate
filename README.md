@@ -422,6 +422,15 @@ For example,
 i18n('greet', {name: 'Mark', dayOfWeek: 'Tuesday'});
 ```
 
+## HTML Tags
+
+Translation text can contain HTML tags that are not translated.
+For example, `en.json` could contain the following line:
+
+```json
+  "greet": "<i>Please</i> be <b>careful<b>!",
+```
+
 ## Acknowledgements
 
 web-translate uses code from the npm package "translate" from
