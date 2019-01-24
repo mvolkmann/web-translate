@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 export {translate} from './translate';
 
 let languageCode;
@@ -34,7 +35,10 @@ export const getLanguageCode = () => languageCode;
 export const getSupportedLanguages = () => getJson('languages.json');
 
 export const haveTranslations = () => {
-  console.log('index.js haveTranslations: translations =', translations);
+  console.log(
+    'index.js haveTranslations: translations =',
+    JSON.stringify(translations)
+  );
   console.log(
     'index.js haveTranslations: length =',
     Object.keys(translations).length
@@ -65,7 +69,10 @@ export function setLanguage(code) {
   return getJson(code + '.json')
     .then(t => {
       translations = t;
-      console.log('index.js setLanguage: translations =', translations);
+      console.log(
+        'index.js setLanguage: translations =',
+        JSON.stringify(translations)
+      );
     })
     .catch(e => console.error('web-translate setLanguage error:', e.message));
 }
