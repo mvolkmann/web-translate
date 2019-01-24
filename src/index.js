@@ -34,17 +34,7 @@ export const getLanguageCode = () => languageCode;
 
 export const getSupportedLanguages = () => getJson('languages.json');
 
-export const haveTranslations = () => {
-  console.log(
-    'index.js haveTranslations: translations =',
-    JSON.stringify(translations)
-  );
-  console.log(
-    'index.js haveTranslations: length =',
-    Object.keys(translations).length
-  );
-  return Object.keys(translations).length > 0;
-};
+export const haveTranslations = () => Object.keys(translations).length > 0;
 
 export function i18n(key, data) {
   let t = translations[key] || key;
@@ -64,16 +54,9 @@ export function i18n(key, data) {
 }
 
 export function setLanguage(code) {
-  console.log('index.js setLanguage: code =', code);
   languageCode = code;
   return getJson(code + '.json')
-    .then(t => {
-      translations = t;
-      console.log(
-        'index.js setLanguage: translations =',
-        JSON.stringify(translations)
-      );
-    })
+    .then(t => (translations = t))
     .catch(e => console.error('web-translate setLanguage error:', e.message));
 }
 
