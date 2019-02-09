@@ -2,7 +2,7 @@
   "name": "web-translate",
   "description": "supports language translation in web applications",
   "author": "R. Mark Volkmann <r.mark.volkmann@gmail.com> (http://mvolkmann.github.io)",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "keywords": [
     "language",
     "translation",
@@ -35,6 +35,8 @@
     "babel-preset-env": "^1.7.0",
     "dotenv": "^6.0.0",
     "eslint": "^5.3.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "esm": "^3.0.77",
     "fetch-mock": "^6.5.2",
     "jest": "^23.5.0",
