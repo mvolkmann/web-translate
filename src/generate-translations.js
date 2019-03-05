@@ -139,7 +139,7 @@ function getSourceFiles(dirPath) {
   }
 }
 
-const sourceExtensions = ['js', 'jsx', 'ts', 'tsx'];
+const sourceExtensions = ['js', 'jsx', 'ts', 'tsx', 'vue'];
 export function isSourceFile(file) {
   const index = file.lastIndexOf('.');
   const extension = file.substring(index + 1);

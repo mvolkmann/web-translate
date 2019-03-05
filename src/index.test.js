@@ -1,3 +1,4 @@
+// Enter ". ./setup" to set API_KEY environment variable.
 import fetch from 'node-fetch';
 window.fetch = fetch;
 

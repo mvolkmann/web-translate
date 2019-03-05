@@ -2,7 +2,7 @@
   "name": "web-translate",
   "description": "supports language translation in web applications",
   "author": "R. Mark Volkmann <r.mark.volkmann@gmail.com> (http://mvolkmann.github.io)",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "keywords": [
     "language",
     "translation",
@@ -40,6 +40,7 @@
     "esm": "^3.0.77",
     "fetch-mock": "^6.5.2",
     "jest": "^23.5.0",
+    "node-fetch": "^2.3.0",
     "prettier": "^1.14.2"
   }
 }

@@ -6,6 +6,7 @@ describe('generate-translations', () => {
     expect(isSourceFile('foo.jsx')).toBe(true);
     expect(isSourceFile('foo.ts')).toBe(true);
     expect(isSourceFile('foo.tsx')).toBe(true);
+    expect(isSourceFile('foo.vue')).toBe(true);
     expect(isSourceFile('foo.bar.js')).toBe(true);
     expect(isSourceFile('foo.bar')).toBe(false);
     expect(isSourceFile('foo')).toBe(false);

@@ -1,3 +1,4 @@
+// Enter ". ./setup" to set API_KEY environment variable.
 import {setApiKey, translate} from './translate';
 const {API_KEY} = process.env;
 
