@@ -178,7 +178,7 @@ Here is a description of what this does.
       in an overrides file for the current language
       (ex. `fr-overrides.json`).
       If none exist then `translations` begins empty.
-   2. For each key/value pair in the English translation file `en.json` ...
+   2. For each key in the English translation file `en.json` ...
       - If there is not already a translation for this key,
         get the translation for the value from the selected translation service
         and save it in `translations`.
