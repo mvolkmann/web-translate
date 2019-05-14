@@ -149,7 +149,7 @@ using one of the supported translation services.
 In some cases it may be desirable to use different translations.
 Those provided by the translation service can be overridden by
 creating a JSON file whose name starts with the language code,
-followed by `-override.json`.
+followed by `-overrides.json`.
 For example, the file `es-overrides.json` could contain
 the following to change the translation for "Hello"
 from "Hola" to "Oh La".
@@ -389,10 +389,10 @@ to display the translation for this text.
 Sometimes the translations provided by the translation service
 will not be ideal for the application.
 To override translations, create a language-specific
-`-override.json` file.
+`-overrides.json` file.
 For example, to display "Oh La" instead of "Hola"
 for the Spanish translation of "Hello", create the
-file `es-override.json` with the following content:
+file `es-overrides.json` with the following content:
 
 ```json
 {
