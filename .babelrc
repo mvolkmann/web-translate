@@ -1,14 +1,13 @@
 {
-  "plugins": ["transform-object-rest-spread"],
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": {
-          "browsers": ["last 2 versions"],
-          "node": "8.11"
+          "node": "current"
         }
       }
     ]
-  ]
+  ],
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
 }

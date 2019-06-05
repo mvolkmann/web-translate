@@ -4,7 +4,7 @@ import mock from './mock';
 //import fs from 'fs';
 
 // Load .env files into the environment.
-require('dotenv').load();
+require('dotenv').config();
 
 translate.keys.google = process.env.GOOGLE_KEY || 'fakeKey';
 translate.keys.yandex = process.env.YANDEX_KEY || 'fakeKey';

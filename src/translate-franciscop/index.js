@@ -7,7 +7,7 @@ import language from './language';
 import cache from './cache';
 
 // Main function
-const Translate = (options = {}) => {
+function Translate(options = {}) {
   /*
   if (!(this instanceof Translate)) {
     return new Translate(options);
@@ -80,7 +80,7 @@ const Translate = (options = {}) => {
       typeof options[key] === 'undefined' ? defaults[key] : options[key];
   }
   return translate;
-};
+}
 
 // Small hack needed for Webpack/Babel: https://github.com/webpack/webpack/issues/706
 const exp = new Translate();
