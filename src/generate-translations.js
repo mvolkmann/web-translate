@@ -110,7 +110,9 @@ function getI18nKeys(dirPath) {
   const sourceFiles = getSourceFiles(dirPath);
   for (const file of sourceFiles) {
     const content = fs.readFileSync(file, {encoding: 'utf8'});
-    const re = /i18n\((.+)\)/g;
+    // Find a matches for "i18n(" followed by anything but ")"
+    // all the way to the next ")".
+    const re = /i18n\(([^)]+)\)/g;
     let result;
     while ((result = re.exec(content))) {
       const key = removeQuotes(result[1]);
