@@ -2,7 +2,7 @@
   "name": "web-translate",
   "description": "supports language translation in web applications",
   "author": "R. Mark Volkmann <r.mark.volkmann@gmail.com> (http://mvolkmann.github.io)",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "keywords": [
     "language",
     "translation",
@@ -27,6 +27,7 @@
     "test": "jest --testPathPattern=src/"
   },
   "dependencies": {
+    "@babel/runtime": "^7.5.5",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
