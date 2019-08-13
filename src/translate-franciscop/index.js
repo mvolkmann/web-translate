@@ -59,7 +59,9 @@ function Translate(options = {}) {
 
     // Will load only for Node.js and use the native function
     // in browsers and in React Native.
-    if (typeof fetch === 'undefined' && navigator.product !== 'ReactNative') {
+    console.log('index.js in web-translate: fetch =', fetch);
+    if (typeof fetch === 'undefined') {
+      console.log('index.js in web-translate: requiring node-fetch');
       // eslint-disable-next-line global-require
       global.fetch = require('node-fetch');
     }
