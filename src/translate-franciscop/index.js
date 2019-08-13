@@ -59,12 +59,10 @@ function Translate(options = {}) {
 
     // Will load only for Node.js and use the native function
     // in browsers and in React Native.
-    /*
     if (typeof fetch === 'undefined') {
       // eslint-disable-next-line global-require
       global.fetch = require('node-fetch');
     }
-    */
 
     if (engine.needkey && !opts.key) {
       throw new Error(
