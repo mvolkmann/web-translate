@@ -57,8 +57,9 @@ function Translate(options = {}) {
       return Promise.resolve(opts.text);
     }
 
-    // Will load only for Node.js and use the native function on the browser
-    if (typeof fetch === 'undefined') {
+    // Will load only for Node.js and use the native function
+    // in browsers and in React Native.
+    if (typeof fetch === 'undefined' && navigator.product !== 'ReactNative') {
       // eslint-disable-next-line global-require
       global.fetch = require('node-fetch');
     }
