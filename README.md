@@ -160,6 +160,9 @@ from "Hola" to "Oh La".
 }
 ```
 
+After creating or modifying these "overrides" files,
+generate translations again as described in the next section.
+
 ## Generating Translations
 
 Manually looking up and specifying translations can be very tedious!
