@@ -25,9 +25,7 @@ export default name => {
   // Possible overflow errors
   if (name.length > 100) {
     throw new Error(
-      `The language must be a string under 100 characters, received ${
-        name.length
-      }`
+      `The language must be a string under 100 characters, received ${name.length}`
     );
   }
 
