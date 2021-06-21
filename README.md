@@ -174,7 +174,7 @@ Here is a description of what this does.
 2. Get all the literal strings passed to the `i18n` function
    in all the source files under the `src` directory
    where source files are any with an
-   extension of "js", "jsx", "ts", "tsx", or "vue".
+   extension of "js", "jsx", "svelte", "ts", "tsx", or "vue".
 3. Get all the English translations from the file `en.json`.
 4. For each language to be supported except English ...
    1. Set `translations` to a map of all the translations found
