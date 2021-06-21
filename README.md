@@ -66,9 +66,7 @@ To enable use of the "Cloud Translation API" and obtain an API Key:
 - Click the "Create Credentials" dropdown and select "API key".
 - Copy this API Key to a secure location.
 
-The Yandex Translate Service has free and commercial tiers.
-The free tier currently allows translating up to 1,000,000 characters per day,
-but not more than 10,000,000 per month.
+The Yandex Translate Service used to have a free tier, but no longer does.
 The commercial tier pricing is documented at
 <https://translate.yandex.com/developers/offer/prices>.
 Currently the cost is \$15 (USD) per million characters translated
