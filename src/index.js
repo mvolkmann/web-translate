@@ -1,3 +1,5 @@
+var global = global || window;
+
 export {translate} from './translate';
 
 let languageCode;
