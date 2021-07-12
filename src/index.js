@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 export {translate} from './translate';
 
 let languageCode;
