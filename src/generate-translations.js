@@ -26,6 +26,14 @@ function generateTranslations() {
   // Get all the strings passed to the i18n function
   // in all the source files under the src directory
   // or a directory specified by a command-line argument.
+  console.log(
+    'generate-translations.js generateTranslations: process.argv =',
+    process.argv
+  );
+  console.log(
+    'generate-translations.js generateTranslations: process.argv[2] =',
+    process.argv[2]
+  );
   const sourceKeys = getI18nKeys(process.argv[2] || 'src');
 
   // For each language to be supported ...
