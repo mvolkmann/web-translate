@@ -24,8 +24,9 @@ function generateTranslations() {
   const english = readJsonFile('public/en.json');
 
   // Get all the strings passed to the i18n function
-  // in all the source files under the src directory.
-  const sourceKeys = getI18nKeys('src');
+  // in all the source files under the src directory
+  // or a directory specified by a command-line argument.
+  const sourceKeys = getI18nKeys(process.argv[2] || 'src');
 
   // For each language to be supported ...
   const promises = Object.values(languages).map(langCode =>
