@@ -2,7 +2,7 @@
   "name": "web-translate",
   "description": "supports language translation in web applications",
   "author": "R. Mark Volkmann <r.mark.volkmann@gmail.com> (http://mvolkmann.github.io)",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "keywords": [
     "language",
     "translation",
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/mvolkmann/web-translate.git"
   },
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "bin": {
     "generate-translations": "lib/generate-translations.js"
   },
