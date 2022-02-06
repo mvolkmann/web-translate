@@ -85,6 +85,10 @@ To use the web-translate package,
 4. Add the following npm script in the `package.json` file for your application.\
    `"gentran": "generate-translations",`
 
+The file `src/generate-translations.js` sets `PUBLIC_DIR` to `static`.
+If this is not where your web app stores public files, change this value.
+For example, React apps typically use a directory named `public`.
+
 ## Supported Written Languages
 
 Create the file `languages.json` to describe the languages to be supported.

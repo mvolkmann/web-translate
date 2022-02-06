@@ -2,6 +2,10 @@
 
 import fs from 'fs';
 import {setApiKey, setEngine, translate} from './translate';
+require('dotenv').config();
+
+// For some web apps, change this to 'public'.`
+const PUBLIC_DIR = 'static';
 
 const {API_KEY, TRANSLATE_ENGINE} = process.env;
 if (!API_KEY) {
@@ -18,10 +22,10 @@ if (TRANSLATE_ENGINE) {
 
 function generateTranslations() {
   // Get all the languages to be supported.
-  const languages = readJsonFile('public/languages.json');
+  const languages = readJsonFile(`${PUBLIC_DIR}/languages.json`);
 
   // Get all the English translations.
-  const english = readJsonFile('public/en.json');
+  const english = readJsonFile(`${PUBLIC_DIR}/en.json`);
 
   // Get all the strings passed to the i18n function
   // in all the source files under the src directory
@@ -51,7 +55,7 @@ function processLanguage(langCode, english, sourceKeys) {
   let promises = [];
 
   // Translations in a language-specific override files take precedence.
-  const overrides = readJsonFile('public/' + langCode + '-overrides.json');
+  const overrides = readJsonFile(`${PUBLIC_DIR}/${langCode}-overrides.json`);
   const translations = overrides;
 
   function getTranslation(langCode, key, englishValue) {
@@ -107,7 +111,9 @@ function processLanguage(langCode, english, sourceKeys) {
       // Wait for all translations for i18n calls to complete.
       Promise.all(promises)
         // Write a new translation file for this language.
-        .then(() => writeJsonFile('public/' + langCode + '.json', translations))
+        .then(() =>
+          writeJsonFile(`${PUBLIC_DIR}/${langCode}.json`, translations)
+        )
         .catch(e => console.error('ERROR in getTranslation 3:', e));
     })
     .catch(e => console.error('ERROR in getTranslation 4:', e));
